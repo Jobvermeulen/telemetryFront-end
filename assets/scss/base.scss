@@ -1,1 +1,15 @@
 // FOR ALL BASE CLASSES
+.base {
+    display: grid;
+    grid-template-columns: 30% 70%;
+    grid-template-rows: 20% 40% 40%;
+    height: calc(100vh - 50px);
+    width: 100%;
+    justify-self: center;
+}
+
+.symbol {
+    color:$_dark-blue;
+    opacity: 0.5;
+}
+

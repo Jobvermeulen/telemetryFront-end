@@ -1,0 +1,35 @@
+.current{
+    grid-column: 1;
+    grid-row: 1 / 4;
+    width: 100%;
+    height: 100%;
+    padding: 25px;
+    background: rgba($_white, 0.2);
+    border-radius: 5px;
+    //border: 5px solid $_white;
+    display: flex;
+    flex-direction: column;
+
+    ul {
+        list-style-type: none;
+        margin-left: 0;
+        padding-left: 0;
+
+        li {
+            margin: 50px 0;
+        }
+    }
+
+    &__date {
+        align-self: flex-end;
+        font-weight: 600;
+    }
+
+    h3 {
+        font-weight: 100;
+    }
+
+    .symbol {
+        font-size: 3.6em;
+    }
+}

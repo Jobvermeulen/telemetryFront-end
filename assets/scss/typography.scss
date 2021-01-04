@@ -1,1 +1,28 @@
 // ALL BASIC TYPOGRAPHY ELEMENTS
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+input,
+.huge{
+    font-family: $_fontFamily;
+}
+
+.bigger{
+    font-size: 120%;
+}
+
+.huge {
+    font-size: 24em;
+    font-weight: 100;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+}
