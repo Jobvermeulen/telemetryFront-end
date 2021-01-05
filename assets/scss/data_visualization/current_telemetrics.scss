@@ -1,4 +1,4 @@
-.current{
+.left_info_column {
     grid-column: 1;
     grid-row: 1 / 4;
     width: 100%;
@@ -9,14 +9,14 @@
     //border: 5px solid $_white;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 
-    ul {
-        list-style-type: none;
-        margin-left: 0;
-        padding-left: 0;
+    .current {
+        display: flex;
+        flex-direction: column;
 
-        li {
-            margin: 50px 0;
+        .info {
+            margin: 20px 0 20px 0;
         }
     }
 
@@ -31,5 +31,8 @@
 
     .symbol {
         font-size: 3.6em;
+        color: $_dark-blue;
+        min-width: 140px;
+        text-align: left;
     }
 }

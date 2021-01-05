@@ -1,38 +1,42 @@
 <template>
-    <div class="current">
-        <h2>Current room telemetrics</h2>
-        <ul>
-            <li>
+    <div class="left_info_column">
+        <div class="current">
+            <div class="info">
                 <h3>
                     Temperature
                 </h3>
-                <p class="symbol">{{ (getTemp === 0) ? "--" : getTemp}} <span class="">C&#176;</span></p>
-            </li>
-            <li>
+                <p class="symbol">{{ (getTemp === 0) ? "--" : getTemp }} <span class="">C&#176;</span></p>
+            </div>
+            <div class="info">
                 <h3>
                     Humidity
                 </h3>
                 <p class="symbol">{{ (getHumidity === 0) ? "--" : getHumidity }} <span class="">%</span></p>
-            </li>
-        </ul>
+            </div>
+            <p>{{ (getDate === 0) ? "--" : getDate }}</p>
+        </div>
 
-        <p class="current__date">{{(getDate === 0) ? "--" : getDate}}</p>
+        <agenda/>
     </div>
 </template>
 <script>
+import agenda from '@/components/base/agenda';
+
 export default {
-    async mounted(){
+    components: {
+        agenda
+    },
+    async mounted() {
         await this.$store.dispatch("telemetry/getTelemetrics");
     },
     computed: {
-        getTemp(){
-            console.log('test');
+        getTemp() {
             return this.$store.state.telemetry.telemetry.temp;
         },
-        getHumidity(){
+        getHumidity() {
             return this.$store.state.telemetry.telemetry.humid;
         },
-        getDate(){
+        getDate() {
             return this.$store.state.telemetry.telemetry.created_on;
         }
     }

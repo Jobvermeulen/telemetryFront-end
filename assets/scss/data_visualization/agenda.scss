@@ -1,0 +1,45 @@
+.agenda {
+    width: 100%;
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: 40px repeat(5, 1fr);
+    padding: 0;
+    margin: 0;
+
+    &__dates , &__day {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__dates {
+        text-align: center;
+        background-color: $_light-gray;
+        color: $_white;
+        margin: 4px;
+        padding: 0;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        opacity: 0.3;
+        transition: opacity;
+    }
+
+    &__day {
+
+    }
+
+    .active {
+        opacity: 1;
+        background-color: $_dark-blue;
+    }
+}
+
+.agenda-header {
+    &__title {}
+    &__day {
+        font-weight: 100;
+    }
+}
