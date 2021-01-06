@@ -1,20 +1,27 @@
 <template>
     <div>
-        <h2 class="agenda-header__title">Telemetry agenda</h2>
-        <h3 class="agenda-header__day">{{ monthNames[month] }} {{ year }}</h3>
+        <ul class="agenda-header__buttons">
+            <li @click="previousMonth()" class="left"><p><</p></li>
+            <li><h3 class="agenda-header__day">{{ monthNames[month] }} {{ year }}</h3></li>
+            <li @click="nextMonth()" class="right"><p>></p></li>
+        </ul>
         <ul class="agenda">
             <li class="agenda__day" v-for="i in this.dayNames.length"><p>{{ i }}</p></li>
-            <li class="agenda__dates" :class="[(j === 0) ? 'hidden' : '', (j <= day && j !== 0) ? 'active' : '']" v-for="j in this.daysInMonth">
+            <li class="agenda__dates"
+                :class="[(j === 0) ? 'hidden' : '', (j <= day && j !== 0) ? 'active' : '', (j === day) ? 'current' : '']"
+                v-for="j in this.daysInMonth" @click="saveDate(j)">
                 <p>{{ (j === 0) ? '' : j }}</p>
             </li>
         </ul>
-        
     </div>
 </template>
 <script>
 export default {
     data() {
         return {
+            currentDate: new Date(),
+            selectedDate: new Date(),
+            customDate: false,
             day: 0,
             month: 0,
             year: 0,
@@ -23,20 +30,19 @@ export default {
             dayNames: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
         }
     },
+    asyncData(){
+        this.selectedDate = new Date();
+    },
     async mounted() {
+
         await this.createAgenda();
     },
     methods: {
-        createAgenda() {
+        async createAgenda() {
             //clear the agenda
             this.daysInMonth = [];
 
-            // Get current date
-            const currentDate = new Date();
-            // Get the month and year of the current date
-            this.day = currentDate.getDate();
-            this.month = currentDate.getMonth();
-            this.year = currentDate.getFullYear();
+            await this.checkAgenda();
 
             // Calculate the amount of days in this month
             const dates = this.checkAmountOfDaysInMonth(this.year, this.month);
@@ -53,13 +59,78 @@ export default {
             for (var j = 1; j <= dates; j++) {
                 this.daysInMonth.push(j);
             }
+        },
 
-            console.log(this.daysInMonth);
+        async checkAgenda() {
+            // Get current date
+            this.currentDate = new Date();
+
+            // Get the month and year of the current date
+            const day = this.currentDate.getDate();
+            const month = this.currentDate.getMonth();
+            const year = this.currentDate.getFullYear();
+
+            if (this.month === month && this.year === year) {
+                this.customDate = false;
+            }
+
+            if (!this.customDate) {
+                this.day = day;
+                this.month = month
+                this.year = year
+            } else {
+                const compareDate = new Date(this.year, this.month)
+
+                if (compareDate < this.currentDate) {
+                    this.day = 32;
+                } else {
+                    this.day = 0;
+                }
+            }
         },
 
         checkAmountOfDaysInMonth(year, month) {
             return 32 - new Date(year, month, 32).getDate();
+        },
+
+        async saveDate(dayNumber) {
+            this.selectedDate = new Date(this.year, this.month, dayNumber);
+
+            if(this.selectedDate < this.currentDate) {
+                await this.$store.dispatch("agenda/saveTheDate", this.selectedDate);
+            }
+        },
+
+        previousMonth() {
+            this.customDate = true;
+
+            if (this.month === 0) {
+                this.month = 11;
+                this.year = this.year - 1;
+            } else {
+                this.month = this.month - 1;
+            }
+            this.createAgenda();
+        },
+
+        nextMonth() {
+            this.customDate = true;
+
+            if (this.month === 11) {
+                this.month = 0;
+                this.year = this.year + 1;
+            } else {
+                this.month = this.month + 1;
+            }
+
+            this.createAgenda();
         }
+
     }
 }
 </script>
+<!--
+(j === this.selectedDate.day && this.month === this.selectedDate.month && this.year === this.selectedDate.year)? 'current': ''-->
+<!--
+(this.selectedDate !== undefined && j === this.selectedDate.getDate() &&  this.selectedDate.getMonth() === this.month && this.selectedDate.getFullYear() === this.year) ? 'current':'']"
+-->

@@ -3,7 +3,7 @@
     list-style-type: none;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: 40px repeat(5, 1fr);
+    grid-template-rows: 40px repeat(6, 1fr);
     padding: 0;
     margin: 0;
 
@@ -34,6 +34,25 @@
     .active {
         opacity: 1;
         background-color: $_dark-blue;
+        transition: background-color, 500ms;
+
+        &:hover {
+            cursor: pointer;
+            background-color: lighten($_dark-blue, 5);
+        }
+    }
+
+    .current {
+        background-color: transparent;
+        border: 2px solid $_yellow;
+        color: $_yellow;
+        transition: 500ms;
+
+        &:hover {
+            background-color: $_yellow;
+            border: 2px solid transparent;
+            color: $_black;
+        }
     }
 }
 
@@ -41,5 +60,40 @@
     &__title {}
     &__day {
         font-weight: 100;
+    }
+
+    &__buttons {
+        list-style-type: none;
+        margin: 12px 0 0 0;
+        padding: 8px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        background-color: rgba($_dark-blue, 1);
+        border-radius: 5px;
+
+        h3 {
+            margin: 0;
+            color: $_white;
+        }
+
+        .left, .right {
+            color:$_light-gray;
+            height: 20px;
+            width: 20px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            transition: 500ms;
+
+            &:hover{
+                cursor: pointer;
+                color: $_white;
+                background-color: lighten($_dark-blue, 5);
+                border-radius: 50%;
+            }
+        }
     }
 }
