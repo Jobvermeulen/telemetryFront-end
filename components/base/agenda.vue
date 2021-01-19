@@ -8,7 +8,8 @@
         <ul class="agenda">
             <li class="agenda__day" v-for="i in this.dayNames.length"><p>{{ i }}</p></li>
             <li class="agenda__dates"
-                :class="[(j === 0) ? 'hidden' : '', (j <= day && j !== 0) ? 'active' : '', (j === day) ? 'current' : '']"
+                :class="[(j === 0) ? 'hidden' : '', (j <= day && j !== 0) ? 'active' : '', (j === day) ? 'current' : '',
+                (selectedDate !== undefined && j === selectedDate.getDate() &&  selectedDate.getMonth() === month && selectedDate.getFullYear() === year) ? 'current':'']"
                 v-for="j in this.daysInMonth" @click="saveDate(j)">
                 <p>{{ (j === 0) ? '' : j }}</p>
             </li>
@@ -96,8 +97,13 @@ export default {
         async saveDate(dayNumber) {
             this.selectedDate = new Date(this.year, this.month, dayNumber);
 
+            const formattedNumberDay = ("0" + dayNumber).slice(-2);
+            const formattedNumberMonth = ("0" + (this.month + 1)).slice(-2);
+
+            const saved = formattedNumberDay + "-" + formattedNumberMonth + "-" + this.year.toString();
+
             if(this.selectedDate < this.currentDate) {
-                await this.$store.dispatch("agenda/saveTheDate", this.selectedDate);
+                await this.$store.dispatch("agenda/saveTheDate", saved);
             }
         },
 

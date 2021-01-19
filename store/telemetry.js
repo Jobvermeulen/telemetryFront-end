@@ -4,7 +4,8 @@ export const state = () => ({
         temp: 0,
         humid: 0,
         created_on: ""
-    }
+    },
+    telemetryList: []
 })
 
 export const actions = {
@@ -16,14 +17,26 @@ export const actions = {
             console.error(e);
         }
     },
+    async getTelemetricsByDate({commit, rootState}) {
+        try {
+            const date = rootState.agenda.selectedDate;
+            const response = await this.$api.get(baseUrl("v1/getbydate/" + date));
+            commit("saveTelemetryList", response.data);
+        } catch (e) {
+            console.error(e);
+        }
+    }
 }
 
 export const mutations = {
     saveTelemetry(state, response) {
         state.telemetry = response;
     },
+    saveTelemetryList(state, response) {
+        state.telemetryList = response;
+    }
 }
 
-const baseUrl = (suffix) => {
-    return `${process.env.BACKEND_BASE_URL}/${suffix}`;
+const baseUrl = (endpoint) => {
+    return `${process.env.BACKEND_BASE_URL}/${endpoint}`;
 }

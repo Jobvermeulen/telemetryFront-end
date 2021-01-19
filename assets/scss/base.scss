@@ -1,14 +1,44 @@
 // FOR ALL BASE CLASSES
 .base {
     display: grid;
-    grid-template-columns: 30% 70%;
+    grid-column-gap: 25px;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 20% 40% 40%;
     height: calc(100vh - 50px);
     width: 100%;
     justify-self: center;
+
+
+    #expandDataVisulationFull:checked ~ & {
+        .left_info_column {
+            opacity: 0;
+            z-index: 100;
+        }
+
+        .data_table {
+            opacity: 0;
+            z-index: 99;
+        }
+
+        .data_visualisation {
+            grid-column: 1 / 4;
+            width: 100%;
+            z-index: 1000;
+        }
+    }
+}
+
+#expandDataVisulationFull {
+    display: none;
 }
 
 .hidden {
     visibility: hidden;
 }
 
+@include media-breakpoint-down(md) {
+    .base {
+        grid-template-columns: repeat(3, calc(100vw - 30px));
+        overflow: scroll;
+    }
+}

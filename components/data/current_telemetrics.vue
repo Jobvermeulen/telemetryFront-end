@@ -26,7 +26,7 @@ export default {
     components: {
         agenda
     },
-    async mounted() {
+    async fetch() {
         await this.$store.dispatch("telemetry/getTelemetrics");
     },
     computed: {

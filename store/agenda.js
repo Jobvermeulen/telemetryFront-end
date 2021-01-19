@@ -1,5 +1,5 @@
 export const state = () => ({
-    selectedDate: Date,
+    selectedDate: "",
 })
 
 export const actions = {
