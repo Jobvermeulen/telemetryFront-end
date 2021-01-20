@@ -1,5 +1,5 @@
 <template>
-    <div class="data_table">
+    <div class="data_table" :class="( getNumberOfTime === 2) ? 'dark' : ''">
         <table>
             <tbody>
                 <tr>
@@ -34,7 +34,11 @@ export default {
         async getTelemetrics() {
             this.telemetrics = this.$store.state.telemetry.telemetryList;
         }
+    },
+    computed: {
+        getNumberOfTime(){
+            return this.$store.state.webpage.numberOfTime;
+        }
     }
-
 }
 </script>

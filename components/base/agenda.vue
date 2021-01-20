@@ -10,7 +10,7 @@
             <li class="agenda__dates"
                 :class="[(j === 0) ? 'hidden' : '', (j <= day && j !== 0) ? 'active' : '', (j === day) ? 'current' : '',
                 (selectedDate !== undefined && j === selectedDate.getDate() &&  selectedDate.getMonth() === month && selectedDate.getFullYear() === year) ? 'current':'']"
-                v-for="j in this.daysInMonth" @click="saveDate(j)">
+                v-for="j in this.daysInMonth" @click="saveDate(j)" ref="agenda_date">
                 <p>{{ (j === 0) ? '' : j }}</p>
             </li>
         </ul>
@@ -31,7 +31,7 @@ export default {
             dayNames: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
         }
     },
-    asyncData(){
+    asyncData() {
         this.selectedDate = new Date();
     },
     async mounted() {
@@ -102,7 +102,7 @@ export default {
 
             const saved = formattedNumberDay + "-" + formattedNumberMonth + "-" + this.year.toString();
 
-            if(this.selectedDate < this.currentDate) {
+            if (this.selectedDate < this.currentDate) {
                 await this.$store.dispatch("agenda/saveTheDate", saved);
             }
         },
@@ -116,10 +116,11 @@ export default {
             } else {
                 this.month = this.month - 1;
             }
+
             this.createAgenda();
         },
 
-        nextMonth() {
+        async nextMonth() {
             this.customDate = true;
 
             if (this.month === 11) {
@@ -129,9 +130,8 @@ export default {
                 this.month = this.month + 1;
             }
 
-            this.createAgenda();
-        }
-
+            await this.createAgenda();
+        },
     }
 }
 </script>

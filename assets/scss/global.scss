@@ -1,14 +1,23 @@
 // FOR ALL GLOBAL ELEMENTS -> HTML, DIV, P ...
-html {
-    background-color: $_basecolor;
-}
 
 #__nuxt {
     width: 100vw;
     height: 100vh;
-    background-image: linear-gradient(0deg,$_dark-blue, $_white);
+    //background-image: linear-gradient(0deg,$_dark-blue, $_white);
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    background-color: $_light-gray;
+}
+
+#__layout {
+    width: 100vw;
+    height: 100vh;
+
+    & > div {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        transition: background-color 500ms;
+    }
 }

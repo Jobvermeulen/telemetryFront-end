@@ -1,43 +1,28 @@
 <template>
-    <div class="left_info_column">
-        <div class="current">
-            <div class="info">
-                <h3>
-                    Temperature
-                </h3>
-                <p class="symbol">{{ (getTemp === 0) ? "--" : getTemp }} <span class="">C&#176;</span></p>
-            </div>
-            <div class="info">
-                <h3>
-                    Humidity
-                </h3>
-                <p class="symbol">{{ (getHumidity === 0) ? "--" : getHumidity }} <span class="">%</span></p>
-            </div>
-            <p>{{ (getDate === 0) ? "--" : getDate }}</p>
-        </div>
-
+    <div class="left_info_column" :class="( getNumberOfTime === 2) ? 'dark' : ''">
+        <h1>{{greatingTextArray[getNumberOfTime]}}</h1>
+        <day_temp_humid_cycle/>
         <agenda/>
     </div>
 </template>
 <script>
 import agenda from '@/components/base/agenda';
+import day_temp_humid_cycle from '@/components/data/day_temp_humid_cycle';
 
 export default {
     components: {
-        agenda
+        agenda,
+        day_temp_humid_cycle
     },
-    async fetch() {
-        await this.$store.dispatch("telemetry/getTelemetrics");
+    data() {
+        return {
+            timeOfDayInNumber: 0,
+            greatingTextArray: ['Good morning','Good afternoon','Good evening'],
+        }
     },
     computed: {
-        getTemp() {
-            return this.$store.state.telemetry.telemetry.temp;
-        },
-        getHumidity() {
-            return this.$store.state.telemetry.telemetry.humid;
-        },
-        getDate() {
-            return this.$store.state.telemetry.telemetry.created_on;
+        getNumberOfTime(){
+            return this.$store.state.webpage.numberOfTime;
         }
     }
 }

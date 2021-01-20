@@ -1,5 +1,5 @@
 <template>
-    <div class="data_visualisation">
+    <div class="data_visualisation" :class="( getNumberOfTime === 2) ? 'dark' : ''">
 <!--        Ignore error -> The input field is moved to the default layout.-->
         <label for="expandDataVisulationFull" class="expand_btn"></label>
         <div class="chart-container">
@@ -66,6 +66,11 @@ export default {
                     maintainAspectRatio: false
                 },
             });
+        }
+    },
+    computed: {
+        getNumberOfTime(){
+            return this.$store.state.webpage.numberOfTime;
         }
     }
 }

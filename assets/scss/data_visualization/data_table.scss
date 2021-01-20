@@ -40,17 +40,9 @@
         background-color: $_white;
     }
 
+    &::-webkit-scrollbar-corner {
+        background: transparent
+    }
+}
 
-}
-.data_table
-{
-}
-.data_table
-{
-}
-.data_table
-{
-}
-.data_table::-webkit-scrollbar-corner
-{ background: transparent }
 

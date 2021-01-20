@@ -6,35 +6,50 @@
     padding: 25px;
     background: rgba($_white, 0.2);
     border-radius: 5px;
-    //border: 5px solid $_white;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     transition: all 500ms;
 
-    .current {
+    .current_climate {
         display: flex;
         flex-direction: column;
+        flex-grow: 1;
+        margin-top: 50px;
+    }
 
-        .info {
+    .data_section {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        &__info {
+            width: calc(50% - 12px);
             margin: 20px 0 20px 0;
+            padding: 12px;
+            background-color: rgba($_white, 0.2);
+            border-radius: 10px;
+
+            .symbol {
+                font-weight: bold;
+                font-size: 2rem;
+            }
         }
     }
+
 
     &__date {
         align-self: flex-end;
         font-weight: 600;
     }
 
-    h3 {
-        font-weight: 100;
+    h2 {
+        font-size: 1.63rem;
+        margin-bottom: 0;
     }
 
-    .symbol {
-        font-size: 3.6em;
-        color: $_dark-blue;
-        min-width: 140px;
-        text-align: left;
+    h3 {
+        font-weight: 100;
     }
 }
 

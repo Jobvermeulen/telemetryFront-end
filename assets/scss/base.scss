@@ -2,12 +2,12 @@
 .base {
     display: grid;
     grid-column-gap: 25px;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 350px 1fr 1fr;
     grid-template-rows: 20% 40% 40%;
     height: calc(100vh - 50px);
+    max-height: 1000px;
     width: 100%;
     justify-self: center;
-
 
     #expandDataVisulationFull:checked ~ & {
         .left_info_column {
@@ -28,6 +28,15 @@
     }
 }
 
+.dark {
+    background-color: $_dark-bg !important;
+    color: $_white;
+}
+
+.dark_bg {
+    background-color: $_dark-bg-webpage;
+}
+
 #expandDataVisulationFull {
     display: none;
 }
@@ -35,6 +44,16 @@
 .hidden {
     visibility: hidden;
 }
+
+.fadeOut {
+    visibility: hidden !important;
+    opacity: 0 !important;
+    transition: visibility 0s 700ms, opacity 700ms linear;
+}
+
+
+
+
 
 @include media-breakpoint-down(md) {
     .base {
